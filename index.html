@@ -279,7 +279,7 @@
             align-items: center;
             justify-content: center;
             z-index: 2000;
-            padding: 20px;
+            padding: 10px;
         }
 
         .modal.active {
@@ -289,37 +289,39 @@
         .modal-content {
             background: #222324;
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             border-radius: 20px;
-            padding: 25px;
+            padding: 20px;
             position: relative;
-            max-height: 90vh;
+            max-height: 95vh;
             overflow-y: auto;
         }
 
         .close-modal {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 10px;
+            right: 10px;
             background: none;
             border: none;
             color: #666;
             font-size: 1.2rem;
             cursor: pointer;
+            z-index: 10;
         }
 
         .modal-title {
             text-align: center;
             font-size: 1.2rem;
             margin-bottom: 10px;
+            padding-right: 30px;
         }
 
         /* قسم الثقة - بسيط */
         .trust-section {
             display: flex;
             justify-content: space-between;
-            margin: 15px 0;
-            padding: 10px;
+            margin: 10px 0;
+            padding: 8px;
             background: #1a1b1c;
             border-radius: 10px;
         }
@@ -330,28 +332,28 @@
 
         .trust-item i {
             color: #38ef7d;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         .trust-item span {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #aaa;
             display: block;
-            margin-top: 3px;
+            margin-top: 2px;
         }
 
         .device-selector {
             display: flex;
-            gap: 15px;
-            margin: 20px 0;
+            gap: 10px;
+            margin: 15px 0;
         }
 
         .device-card {
             flex: 1;
             background: #2d2e2f;
             border: 2px solid transparent;
-            border-radius: 15px;
-            padding: 20px 10px;
+            border-radius: 12px;
+            padding: 15px 5px;
             text-align: center;
             cursor: pointer;
             transition: 0.2s;
@@ -363,9 +365,9 @@
         }
 
         .device-card i {
-            font-size: 2.5rem;
+            font-size: 2rem;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .device-card.android i {
@@ -376,13 +378,20 @@
             color: white;
         }
 
-        /* تصميم اللوكر داخل Iframe */
-        .locker-container {
-            margin-top: 20px;
-            border-radius: 15px;
+        .device-card span {
+            font-size: 0.8rem;
+        }
+
+        /* حاوية اللوكر الجديدة - تظهر كاملة بدون نزول */
+        .locker-wrapper {
+            margin-top: 15px;
+            border-radius: 16px;
             overflow: hidden;
             border: 2px solid #38ef7d33;
             background: #1a1b1c;
+            height: 420px;
+            display: flex;
+            flex-direction: column;
         }
 
         .locker-header {
@@ -395,7 +404,7 @@
 
         .locker-header i {
             color: black;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .locker-header span {
@@ -404,66 +413,98 @@
             font-size: 0.9rem;
         }
 
-        .locker-header small {
-            color: rgba(0,0,0,0.7);
-            font-size: 0.8rem;
+        .locker-header .badge {
+            background: rgba(0,0,0,0.2);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: black;
             margin-left: auto;
         }
 
         .locker-frame {
+            flex: 1;
             position: relative;
-            width: 100%;
-            height: 380px;
             background: #1a1b1c;
+            height: calc(100% - 50px);
         }
 
         .locker-frame iframe {
             width: 100%;
             height: 100%;
             border: none;
+            background: white;
         }
 
-        .locker-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(to top, #1a1b1c, transparent);
-            pointer-events: none;
+        .locker-footer {
+            background: #1a1b1c;
+            padding: 8px 15px;
+            border-top: 1px solid #38ef7d33;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .locker-footer .secure-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #38ef7d;
+            font-size: 0.7rem;
+        }
+
+        .locker-footer .secure-badge i {
+            font-size: 0.8rem;
+        }
+
+        .locker-footer .steps {
+            display: flex;
+            gap: 5px;
+        }
+
+        .locker-footer .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #555;
+        }
+
+        .locker-footer .step-dot.active {
+            background: #38ef7d;
+            box-shadow: 0 0 10px #38ef7d;
         }
 
         /* رسالة 97% */
         .stats-message {
-            background: #1a1b1c;
+            background: linear-gradient(135deg, #38ef7d1a, #2ecc711a);
             border: 1px solid #38ef7d33;
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 15px;
             text-align: center;
-            margin: 20px 0;
+            margin: 15px 0 5px;
         }
 
         .stats-message .percentage {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 900;
             color: #38ef7d;
-            line-height: 1.2;
-            text-shadow: 0 0 20px #38ef7d;
+            line-height: 1;
+            text-shadow: 0 0 15px #38ef7d;
         }
 
         .stats-message .text {
             color: #fff;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         /* قسم الضمانات */
         .guarantees-section {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            padding: 15px;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 12px;
             background: #1a1b1c;
-            border-radius: 15px;
+            border-radius: 12px;
             border: 1px solid #38ef7d33;
         }
 
@@ -474,28 +515,29 @@
 
         .guarantee-item i {
             color: #38ef7d;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         .guarantee-item span {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: #aaa;
             display: block;
-            margin-top: 5px;
+            margin-top: 3px;
         }
 
         .device-message {
             text-align: center;
             color: #38ef7d;
-            margin: 10px 0;
+            margin: 8px 0;
             display: none;
+            font-size: 0.9rem;
         }
 
         .initial-message {
             text-align: center;
             color: #aaa;
-            font-size: 0.9rem;
-            margin-top: 15px;
+            font-size: 0.85rem;
+            margin-top: 10px;
         }
 
         .live-counter {
@@ -504,9 +546,9 @@
             left: 15px;
             background: rgba(0,0,0,0.8);
             backdrop-filter: blur(10px);
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             border: 1px solid #38ef7d33;
             z-index: 800;
         }
@@ -515,34 +557,20 @@
             color: #38ef7d;
             margin-right: 5px;
         }
-
-        /* مؤشر التحميل */
-        .loading-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin: 10px 0;
-            color: #38ef7d;
-            font-size: 0.9rem;
-        }
-
-        .loading-indicator i {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body>
+    <!-- عنصر الصوت - باستخدام صوت مختلف وأكثر وضوحاً -->
+    <audio id="clickSound" preload="auto">
+        <source src="https://www.myinstants.com/media/sounds/button-124476.mp3" type="audio/mpeg">
+        <source src="https://www.soundjay.com/misc/sounds/button-3.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="lang-selector">
-        <button class="lang-btn active" onclick="changeLang('ar')">🇸🇦 AR</button>
-        <button class="lang-btn" onclick="changeLang('en')">🇬🇧 EN</button>
-        <button class="lang-btn" onclick="changeLang('fr')">🇫🇷 FR</button>
-        <button class="lang-btn" onclick="changeLang('es')">🇪🇸 ES</button>
+        <button class="lang-btn active" onclick="changeLang('ar'); playClickSound()">🇸🇦 AR</button>
+        <button class="lang-btn" onclick="changeLang('en'); playClickSound()">🇬🇧 EN</button>
+        <button class="lang-btn" onclick="changeLang('fr'); playClickSound()">🇫🇷 FR</button>
+        <button class="lang-btn" onclick="changeLang('es'); playClickSound()">🇪🇸 ES</button>
     </div>
 
     <div class="top-notif" id="notification">
@@ -567,6 +595,7 @@
             <img src="https://i.ytimg.com/vi/8qsumch7S_s/maxresdefault.jpg" loading="lazy">
             <img src="https://i.ytimg.com/vi/CNTf5JOCuCE/maxresdefault.jpg" loading="lazy">
             <img src="https://i.pinimg.com/1200x/b3/cd/c9/b3cdc9fb37ac8dee4bf428dff3453467.jpg" loading="lazy">
+            <img src="https://media.gq.com/photos/5a5f9b7b8d5f0c3777b0b3b3/16:9/w_2560%2Cc_limit/gta-5.jpg" loading="lazy">
         </div>
 
         <div class="features">
@@ -622,13 +651,13 @@
         </footer>
     </div>
 
-    <button class="floating-btn" onclick="openModal()" id="mainBtn">
+    <button class="floating-btn" onclick="openModal(); playClickSound()" id="mainBtn">
         <i class="fas fa-download"></i> <span id="mainBtnText">حمل اللعبة الآن</span>
     </button>
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <button class="close-modal" onclick="closeModal(); playClickSound()"><i class="fas fa-times"></i></button>
             
             <h3 class="modal-title" id="modalTitle">🔒 اختر جهازك</h3>
             
@@ -649,11 +678,11 @@
             </div>
             
             <div class="device-selector">
-                <div class="device-card android" onclick="selectDevice('android')" id="androidCard">
+                <div class="device-card android" onclick="selectDevice('android'); playClickSound()" id="androidCard">
                     <i class="fab fa-android"></i>
                     <span id="androidText">اندرويد</span>
                 </div>
-                <div class="device-card ios" onclick="selectDevice('ios')" id="iosCard">
+                <div class="device-card ios" onclick="selectDevice('ios'); playClickSound()" id="iosCard">
                     <i class="fab fa-apple"></i>
                     <span id="iosText">آيفون</span>
                 </div>
@@ -667,17 +696,27 @@
                 <span id="initialMessageText">اختر جهازك للوصول للتحميل</span>
             </div>
 
-            <!-- لوكر داخل Iframe -->
+            <!-- حاوية اللوكر المحسنة - تظهر كاملة -->
             <div id="lockerContainer" style="display: none;">
-                <div class="locker-container">
+                <div class="locker-wrapper">
                     <div class="locker-header">
                         <i class="fas fa-shield-alt"></i>
                         <span id="lockerHeaderText">تحقق أمني</span>
-                        <small id="lockerSecure">SSL</small>
+                        <div class="badge" id="lockerBadge">SSL</div>
                     </div>
                     <div class="locker-frame">
                         <iframe id="lockerIframe" src="about:blank" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <div class="locker-overlay"></div>
+                    </div>
+                    <div class="locker-footer">
+                        <div class="secure-badge">
+                            <i class="fas fa-lock"></i>
+                            <span id="secureText">آمن ومشفر</span>
+                        </div>
+                        <div class="steps">
+                            <div class="step-dot active"></div>
+                            <div class="step-dot"></div>
+                            <div class="step-dot"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -691,6 +730,22 @@
     </div>
 
     <script>
+        // ==================== دالة الصوت المحسنة ====================
+        function playClickSound() {
+            const sound = document.getElementById('clickSound');
+            if (sound) {
+                sound.currentTime = 0;
+                sound.play().catch(error => {
+                    console.log('تعذر تشغيل الصوت:', error);
+                    // محاولة تشغيل الصوت بعد تفاعل المستخدم
+                    document.addEventListener('click', function initAudio() {
+                        sound.play().catch(e => {});
+                        document.removeEventListener('click', initAudio);
+                    }, { once: true });
+                });
+            }
+        }
+
         // ==================== الترجمات ====================
         const translations = {
             ar: {
@@ -723,7 +778,8 @@
                 deviceMessageText: "تم اختيار",
                 initialMessageText: "اختر جهازك للوصول للتحميل",
                 lockerHeaderText: "تحقق أمني",
-                lockerSecure: "SSL",
+                lockerBadge: "SSL",
+                secureText: "آمن ومشفر",
                 successRateText: "من المستخدمين يكملون التحقق بنجاح",
                 counterText: "شخص يشاهد الآن",
                 notification: "قام بالتحميل للتو"
@@ -758,7 +814,8 @@
                 deviceMessageText: "Selected",
                 initialMessageText: "Choose your device to download",
                 lockerHeaderText: "Security Check",
-                lockerSecure: "SSL",
+                lockerBadge: "SSL",
+                secureText: "Secure & Encrypted",
                 successRateText: "of users complete verification successfully",
                 counterText: "people watching now",
                 notification: "just downloaded"
@@ -793,7 +850,8 @@
                 deviceMessageText: "Sélectionné",
                 initialMessageText: "Choisissez votre appareil pour télécharger",
                 lockerHeaderText: "Vérification de sécurité",
-                lockerSecure: "SSL",
+                lockerBadge: "SSL",
+                secureText: "Sécurisé et crypté",
                 successRateText: "des utilisateurs réussissent la vérification",
                 counterText: "personnes regardent",
                 notification: "vient de télécharger"
@@ -828,7 +886,8 @@
                 deviceMessageText: "Seleccionado",
                 initialMessageText: "Elige tu dispositivo para descargar",
                 lockerHeaderText: "Verificación de seguridad",
-                lockerSecure: "SSL",
+                lockerBadge: "SSL",
+                secureText: "Seguro y encriptado",
                 successRateText: "de usuarios completan la verificación",
                 counterText: "personas viendo",
                 notification: "acaba de descargar"
@@ -873,7 +932,8 @@
             document.getElementById('deviceMessageText').textContent = t.deviceMessageText;
             document.getElementById('initialMessageText').textContent = t.initialMessageText;
             document.getElementById('lockerHeaderText').textContent = t.lockerHeaderText;
-            document.getElementById('lockerSecure').textContent = t.lockerSecure;
+            document.getElementById('lockerBadge').textContent = t.lockerBadge;
+            document.getElementById('secureText').textContent = t.secureText;
             document.getElementById('successRateText').textContent = t.successRateText;
             document.getElementById('counterText').innerHTML = `286 ${t.counterText}`;
 
@@ -1017,6 +1077,15 @@
         window.onload = function() {
             changeLang('ar');
             setInterval(updateNotification, 4000);
+            
+            // محاولة تشغيل صوت فارغ لتهيئة المتصفح
+            const sound = document.getElementById('clickSound');
+            sound.volume = 0;
+            sound.play().then(() => {
+                sound.pause();
+                sound.currentTime = 0;
+                sound.volume = 1;
+            }).catch(() => {});
         };
     </script>
 </body>
