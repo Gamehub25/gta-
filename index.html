@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GTA 5 Mobile | Télécharger pour Android et iOS</title>
+    <title>GTA 5 Mobile | تحميل للاندرويد والايفون</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -314,32 +314,30 @@
             margin-bottom: 10px;
         }
 
-        /* قسم الثقة */
+        /* قسم الثقة - بسيط */
         .trust-section {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            background: #1a1b1c;
-            border-radius: 15px;
-            padding: 15px;
+            display: flex;
+            justify-content: space-between;
             margin: 15px 0;
-            border: 1px solid #38ef7d33;
+            padding: 10px;
+            background: #1a1b1c;
+            border-radius: 10px;
         }
 
         .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            text-align: center;
         }
 
         .trust-item i {
             color: #38ef7d;
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
 
         .trust-item span {
-            color: #fff;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
+            color: #aaa;
+            display: block;
+            margin-top: 3px;
         }
 
         .device-selector {
@@ -378,147 +376,84 @@
             color: white;
         }
 
-        .locker {
-            display: none;
+        /* تصميم اللوكر داخل Iframe */
+        .locker-container {
             margin-top: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #38ef7d33;
+            background: #1a1b1c;
         }
 
         .locker-header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .locker-header h4 {
-            color: #38ef7d;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .locker-header p {
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        .progress-bar {
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
-            margin: 10px 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: #38ef7d;
-            transition: width 0.3s;
-        }
-
-        .locker-step {
-            background: #1a1b1c;
-            border: 1px solid #38ef7d4d;
-            border-radius: 12px;
-            padding: 15px;
+            background: linear-gradient(90deg, #38ef7d, #2ecc71);
+            padding: 12px 15px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin: 15px 0;
-        }
-
-        .step-number {
-            width: 30px;
-            height: 30px;
-            border: 2px solid #38ef7d;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #38ef7d;
-            font-weight: bold;
-        }
-
-        .step-text {
-            flex: 1;
-            margin-left: 15px;
-            font-size: 0.95rem;
-        }
-
-        .step-check {
-            color: #555;
-            font-size: 1.2rem;
-        }
-
-        .step-check.completed {
-            color: #38ef7d;
-        }
-
-        /* رسالة الاستعجال */
-        .urgency-message {
-            background: #ff44441a;
-            border: 1px solid #ff4444;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 15px 0;
-            text-align: center;
-            animation: blink 2s infinite;
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
-        }
-
-        .urgency-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
             gap: 10px;
         }
 
-        .urgency-content i {
-            color: #ff4444;
+        .locker-header i {
+            color: black;
             font-size: 1.2rem;
         }
 
-        .urgency-content span {
-            color: #ff4444;
-            font-size: 1rem;
+        .locker-header span {
+            color: black;
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
-        #verificationFrame {
+        .locker-header small {
+            color: rgba(0,0,0,0.7);
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        .locker-frame {
+            position: relative;
             width: 100%;
-            height: 320px;
-            border: none;
-            border-radius: 10px;
+            height: 380px;
             background: #1a1b1c;
-            margin: 15px 0;
         }
 
-        /* رسالة 97% فقط - بدون زر */
+        .locker-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .locker-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to top, #1a1b1c, transparent);
+            pointer-events: none;
+        }
+
+        /* رسالة 97% */
         .stats-message {
             background: #1a1b1c;
             border: 1px solid #38ef7d33;
             border-radius: 15px;
             padding: 20px;
             text-align: center;
-            margin: 15px 0;
-            display: none;
+            margin: 20px 0;
         }
 
         .stats-message .percentage {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 900;
             color: #38ef7d;
             line-height: 1.2;
             text-shadow: 0 0 20px #38ef7d;
-            margin-bottom: 5px;
         }
 
         .stats-message .text {
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         /* قسم الضمانات */
@@ -580,6 +515,26 @@
             color: #38ef7d;
             margin-right: 5px;
         }
+
+        /* مؤشر التحميل */
+        .loading-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px 0;
+            color: #38ef7d;
+            font-size: 0.9rem;
+        }
+
+        .loading-indicator i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -592,22 +547,22 @@
 
     <div class="top-notif" id="notification">
         <i class="fas fa-user-circle"></i>
-        <span id="notificationText">Ahmed_123 vient de télécharger</span>
+        <span id="notificationText">أحمد_123 قام بالتحميل للتو</span>
     </div>
 
     <div class="live-counter" id="liveCounter">
-        <i class="fas fa-eye"></i> <span id="counterText">286 personnes regardent</span>
+        <i class="fas fa-eye"></i> <span id="counterText">286 شخص يشاهدون الآن</span>
     </div>
 
     <div class="header">
         <div>
             <h1>GTA 5 <span>Mobile</span></h1>
-            <p id="headerSubtitle">Jouez maintenant sur votre téléphone</p>
+            <p id="headerSubtitle">العب الآن على هاتفك</p>
         </div>
     </div>
 
     <div class="container">
-        <h2 class="gallery-title" id="galleryTitle">Galerie du jeu</h2>
+        <h2 class="gallery-title" id="galleryTitle">صور من اللعبة</h2>
         <div class="gallery">
             <img src="https://i.ytimg.com/vi/8qsumch7S_s/maxresdefault.jpg" loading="lazy">
             <img src="https://i.ytimg.com/vi/CNTf5JOCuCE/maxresdefault.jpg" loading="lazy">
@@ -617,136 +572,119 @@
         <div class="features">
             <div class="feature">
                 <i class="fas fa-gamepad"></i>
-                <h4 id="feature1Title">Jeu complet</h4>
-                <p id="feature1Desc">Histoire + online</p>
+                <h4 id="feature1Title">اللعبة كاملة</h4>
+                <p id="feature1Desc">قصة كاملة + اونلاين</p>
             </div>
             <div class="feature">
                 <i class="fas fa-mobile-alt"></i>
-                <h4 id="feature2Title">Optimisé mobile</h4>
-                <p id="feature2Desc">Haute performance</p>
+                <h4 id="feature2Title">محسنة للموبايل</h4>
+                <p id="feature2Desc">أداء عالي</p>
             </div>
             <div class="feature">
                 <i class="fas fa-car"></i>
-                <h4 id="feature3Title">Tous véhicules</h4>
-                <p id="feature3Desc">200+ voitures</p>
+                <h4 id="feature3Title">جميع المركبات</h4>
+                <p id="feature3Desc">200+ عربية</p>
             </div>
             <div class="feature">
                 <i class="fas fa-map"></i>
-                <h4 id="feature4Title">Monde ouvert</h4>
-                <p id="feature4Desc">Los Santos</p>
+                <h4 id="feature4Title">عالم مفتوح</h4>
+                <p id="feature4Desc">لوس سانتوس</p>
             </div>
         </div>
 
         <div class="stats">
-            <span><i class="fas fa-users"></i> <span id="statsPlayers">1.2M+ joueurs</span></span>
-            <span><i class="fas fa-star"></i> <span id="statsRating">4.8 évaluation</span></span>
-            <span><i class="fas fa-headset"></i> <span id="statsSupport">Support 24/7</span></span>
+            <span><i class="fas fa-users"></i> <span id="statsPlayers">1.2M+ لاعب</span></span>
+            <span><i class="fas fa-star"></i> <span id="statsRating">4.8 تقييم</span></span>
+            <span><i class="fas fa-headset"></i> <span id="statsSupport">دعم 24/7</span></span>
         </div>
 
-        <h2 class="reviews-title" id="reviewsTitle">Avis des joueurs</h2>
+        <h2 class="reviews-title" id="reviewsTitle">آراء اللاعبين</h2>
         <div id="reviewsList"></div>
 
         <!-- قسم الضمانات -->
         <div class="guarantees-section">
             <div class="guarantee-item">
                 <i class="fas fa-undo-alt"></i>
-                <span id="guarantee1">Garantie satisfait</span>
+                <span id="guarantee1">ضمان استعادة الأموال</span>
             </div>
             <div class="guarantee-item">
                 <i class="fas fa-headset"></i>
-                <span id="guarantee2">Support 24/7</span>
+                <span id="guarantee2">دعم 24/7</span>
             </div>
             <div class="guarantee-item">
                 <i class="fas fa-tachometer-alt"></i>
-                <span id="guarantee3">Mises à jour gratuites</span>
+                <span id="guarantee3">تحديثات مجانية</span>
             </div>
         </div>
 
         <footer>
-            <span id="footerPrivacy">Confidentialité</span> | <span id="footerTerms">Conditions</span>
+            <span id="footerPrivacy">سياسة الخصوصية</span> | <span id="footerTerms">الشروط والأحكام</span>
         </footer>
     </div>
 
     <button class="floating-btn" onclick="openModal()" id="mainBtn">
-        <i class="fas fa-download"></i> <span id="mainBtnText">Télécharger maintenant</span>
+        <i class="fas fa-download"></i> <span id="mainBtnText">حمل اللعبة الآن</span>
     </button>
 
     <div class="modal" id="modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
             
-            <h3 class="modal-title" id="modalTitle">🔒 Choisissez votre appareil</h3>
+            <h3 class="modal-title" id="modalTitle">🔒 اختر جهازك</h3>
             
-            <!-- قسم الثقة -->
+            <!-- قسم الثقة - بسيط -->
             <div class="trust-section">
                 <div class="trust-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span id="trust1">آمن 100%</span>
+                </div>
+                <div class="trust-item">
                     <i class="fas fa-lock"></i>
-                    <span id="trust1">🔒 Connexion sécurisée SSL</span>
+                    <span id="trust2">مشفر</span>
                 </div>
                 <div class="trust-item">
-                    <i class="fas fa-bolt"></i>
-                    <span id="trust2">⚡ Téléchargement rapide (≈30 sec)</span>
-                </div>
-                <div class="trust-item">
-                    <i class="fas fa-mobile-alt"></i>
-                    <span id="trust3">✅ Compatible Android & iOS</span>
-                </div>
-                <div class="trust-item">
-                    <i class="fas fa-shield-virus"></i>
-                    <span id="trust4">🛡️ Vérifié sans virus</span>
+                    <i class="fas fa-check-circle"></i>
+                    <span id="trust3">موثوق</span>
                 </div>
             </div>
             
             <div class="device-selector">
                 <div class="device-card android" onclick="selectDevice('android')" id="androidCard">
                     <i class="fab fa-android"></i>
-                    <span id="androidText">Android</span>
+                    <span id="androidText">اندرويد</span>
                 </div>
                 <div class="device-card ios" onclick="selectDevice('ios')" id="iosCard">
                     <i class="fab fa-apple"></i>
-                    <span id="iosText">iPhone</span>
+                    <span id="iosText">آيفون</span>
                 </div>
             </div>
 
             <div class="device-message" id="deviceMessage">
-                <i class="fas fa-check-circle"></i> <span id="deviceMessageText">Sélectionné</span> <span id="selectedDevice"></span>
+                <i class="fas fa-check-circle"></i> <span id="deviceMessageText">تم اختيار</span> <span id="selectedDevice"></span>
             </div>
 
             <div class="initial-message" id="initialMessage">
-                <span id="initialMessageText">Choisissez votre appareil pour télécharger</span>
+                <span id="initialMessageText">اختر جهازك للوصول للتحميل</span>
             </div>
 
-            <!-- Locker - sans bouton de téléchargement -->
-            <div class="locker" id="locker">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-
-                <div class="locker-header">
-                    <h4 id="lockerTitle">✅ Vérification de sécurité</h4>
-                    <p id="lockerSubtitle">Complétez l'étape pour débloquer</p>
-                </div>
-
-                <!-- رسالة الاستعجال -->
-                <div class="urgency-message" id="urgencyMessage">
-                    <div class="urgency-content">
-                        <i class="fas fa-hourglass-half"></i>
-                        <span id="urgencyText">⏳ Offre limitée — accès disponible aujourd'hui seulement</span>
+            <!-- لوكر داخل Iframe -->
+            <div id="lockerContainer" style="display: none;">
+                <div class="locker-container">
+                    <div class="locker-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <span id="lockerHeaderText">تحقق أمني</span>
+                        <small id="lockerSecure">SSL</small>
+                    </div>
+                    <div class="locker-frame">
+                        <iframe id="lockerIframe" src="about:blank" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="locker-overlay"></div>
                     </div>
                 </div>
 
-                <div class="locker-step">
-                    <div class="step-number">1</div>
-                    <div class="step-text" id="stepText">Compléter la vérification</div>
-                    <i class="fas fa-check-circle step-check" id="stepCheck"></i>
-                </div>
-
-                <iframe id="verificationFrame" src="about:blank"></iframe>
-
-                <!-- فقط 97% - بدون زر تحميل -->
+                <!-- رسالة 97% -->
                 <div class="stats-message" id="statsMessage">
                     <div class="percentage">97%</div>
-                    <div class="text" id="successRateText">des utilisateurs réussissent l'offre</div>
+                    <div class="text" id="successRateText">من المستخدمين يكملون التحقق بنجاح</div>
                 </div>
             </div>
         </div>
@@ -777,19 +715,16 @@
                 footerTerms: "الشروط والأحكام",
                 mainBtnText: "حمل اللعبة الآن",
                 modalTitle: "🔒 اختر جهازك",
-                trust1: "🔒 اتصال آمن SSL",
-                trust2: "⚡ تحميل سريع (≈30 ثانية)",
-                trust3: "✅ متوافق Android & iOS",
-                trust4: "🛡️ خالٍ من الفيروسات",
+                trust1: "آمن 100%",
+                trust2: "مشفر",
+                trust3: "موثوق",
                 androidText: "اندرويد",
                 iosText: "آيفون",
                 deviceMessageText: "تم اختيار",
                 initialMessageText: "اختر جهازك للوصول للتحميل",
-                lockerTitle: "✅ تحقق أمني",
-                lockerSubtitle: "أكمل الخطوة لفتح التحميل",
-                urgencyText: "⏳ عرض محدود — متاح اليوم فقط",
-                stepText: "أكمل التحقق",
-                successRateText: "من المستخدمين يكملون العرض بنجاح",
+                lockerHeaderText: "تحقق أمني",
+                lockerSecure: "SSL",
+                successRateText: "من المستخدمين يكملون التحقق بنجاح",
                 counterText: "شخص يشاهد الآن",
                 notification: "قام بالتحميل للتو"
             },
@@ -815,19 +750,16 @@
                 footerTerms: "Terms & Conditions",
                 mainBtnText: "Download Now",
                 modalTitle: "🔒 Choose Device",
-                trust1: "🔒 SSL Secure Connection",
-                trust2: "⚡ Fast Download (≈30 sec)",
-                trust3: "✅ Compatible Android & iOS",
-                trust4: "🛡️ Virus Free",
+                trust1: "100% Secure",
+                trust2: "Encrypted",
+                trust3: "Trusted",
                 androidText: "Android",
                 iosText: "iPhone",
                 deviceMessageText: "Selected",
                 initialMessageText: "Choose your device to download",
-                lockerTitle: "✅ Security Check",
-                lockerSubtitle: "Complete the step to unlock",
-                urgencyText: "⏳ Limited offer — available today only",
-                stepText: "Complete verification",
-                successRateText: "of users unlock successfully",
+                lockerHeaderText: "Security Check",
+                lockerSecure: "SSL",
+                successRateText: "of users complete verification successfully",
                 counterText: "people watching now",
                 notification: "just downloaded"
             },
@@ -853,19 +785,16 @@
                 footerTerms: "Conditions",
                 mainBtnText: "Télécharger maintenant",
                 modalTitle: "🔒 Choisissez votre appareil",
-                trust1: "🔒 Connexion sécurisée SSL",
-                trust2: "⚡ Téléchargement rapide (≈30 sec)",
-                trust3: "✅ Compatible Android & iOS",
-                trust4: "🛡️ Vérifié sans virus",
+                trust1: "100% Sécurisé",
+                trust2: "Crypté",
+                trust3: "De confiance",
                 androidText: "Android",
                 iosText: "iPhone",
                 deviceMessageText: "Sélectionné",
                 initialMessageText: "Choisissez votre appareil pour télécharger",
-                lockerTitle: "✅ Vérification de sécurité",
-                lockerSubtitle: "Complétez l'étape pour débloquer",
-                urgencyText: "⏳ Offre limitée — accès disponible aujourd'hui seulement",
-                stepText: "Compléter la vérification",
-                successRateText: "des utilisateurs réussissent l'offre",
+                lockerHeaderText: "Vérification de sécurité",
+                lockerSecure: "SSL",
+                successRateText: "des utilisateurs réussissent la vérification",
                 counterText: "personnes regardent",
                 notification: "vient de télécharger"
             },
@@ -891,29 +820,24 @@
                 footerTerms: "Términos",
                 mainBtnText: "Descargar ahora",
                 modalTitle: "🔒 Elige tu dispositivo",
-                trust1: "🔒 Conexión segura SSL",
-                trust2: "⚡ Descarga rápida (≈30 seg)",
-                trust3: "✅ Compatible Android & iOS",
-                trust4: "🛡️ Libre de virus",
+                trust1: "100% Seguro",
+                trust2: "Encriptado",
+                trust3: "Confiado",
                 androidText: "Android",
                 iosText: "iPhone",
                 deviceMessageText: "Seleccionado",
                 initialMessageText: "Elige tu dispositivo para descargar",
-                lockerTitle: "✅ Verificación de seguridad",
-                lockerSubtitle: "Completa el paso para desbloquear",
-                urgencyText: "⏳ Oferta limitada — disponible hoy solo",
-                stepText: "Completar verificación",
-                successRateText: "de usuarios completan la oferta",
+                lockerHeaderText: "Verificación de seguridad",
+                lockerSecure: "SSL",
+                successRateText: "de usuarios completan la verificación",
                 counterText: "personas viendo",
                 notification: "acaba de descargar"
             }
         };
 
         // ==================== المتغيرات ====================
-        let currentLang = 'fr';
+        let currentLang = 'ar';
         let selectedDevice = null;
-        let verificationCompleted = false;
-        let verificationTimer;
 
         // ==================== تغيير اللغة ====================
         function changeLang(lang) {
@@ -944,15 +868,12 @@
             document.getElementById('trust1').textContent = t.trust1;
             document.getElementById('trust2').textContent = t.trust2;
             document.getElementById('trust3').textContent = t.trust3;
-            document.getElementById('trust4').textContent = t.trust4;
             document.getElementById('androidText').textContent = t.androidText;
             document.getElementById('iosText').textContent = t.iosText;
             document.getElementById('deviceMessageText').textContent = t.deviceMessageText;
             document.getElementById('initialMessageText').textContent = t.initialMessageText;
-            document.getElementById('lockerTitle').textContent = t.lockerTitle;
-            document.getElementById('lockerSubtitle').textContent = t.lockerSubtitle;
-            document.getElementById('urgencyText').textContent = t.urgencyText;
-            document.getElementById('stepText').textContent = t.stepText;
+            document.getElementById('lockerHeaderText').textContent = t.lockerHeaderText;
+            document.getElementById('lockerSecure').textContent = t.lockerSecure;
             document.getElementById('successRateText').textContent = t.successRateText;
             document.getElementById('counterText').innerHTML = `286 ${t.counterText}`;
 
@@ -991,7 +912,7 @@
         };
 
         function updateNotification() {
-            const nameList = names[currentLang] || names.fr;
+            const nameList = names[currentLang] || names.ar;
             const randomName = nameList[Math.floor(Math.random() * nameList.length)];
             const randomNum = Math.floor(Math.random() * 900 + 100);
             document.getElementById('notificationText').textContent = 
@@ -1026,7 +947,7 @@
             const list = document.getElementById('reviewsList');
             list.innerHTML = '';
             
-            (reviews[currentLang] || reviews.fr).forEach(r => {
+            (reviews[currentLang] || reviews.ar).forEach(r => {
                 const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
                 const gender = r.name.includes('Marie') || r.name.includes('Sophie') || r.name.includes('Camille') || r.name.includes('Julie') || r.name.includes('María') || r.name.includes('Ana') || r.name.includes('Laura') || r.name.includes('سارة') || r.name.includes('نور') || r.name.includes('ريم') ? 'women' : 'men';
                 list.innerHTML += `
@@ -1054,23 +975,18 @@
         function closeModal() {
             document.getElementById('modal').classList.remove('active');
             document.body.style.overflow = 'auto';
-            if (verificationTimer) clearTimeout(verificationTimer);
+            // إيقاف iframe عند الإغلاق
+            document.getElementById('lockerIframe').src = 'about:blank';
         }
 
         function resetModal() {
             selectedDevice = null;
-            verificationCompleted = false;
             
             document.getElementById('androidCard').classList.remove('active');
             document.getElementById('iosCard').classList.remove('active');
-            document.getElementById('locker').style.display = 'none';
+            document.getElementById('lockerContainer').style.display = 'none';
             document.getElementById('deviceMessage').style.display = 'none';
             document.getElementById('initialMessage').style.display = 'block';
-            document.getElementById('statsMessage').style.display = 'none';
-            document.getElementById('stepCheck').style.color = '#555';
-            document.getElementById('progressFill').style.width = '0%';
-            
-            if (verificationTimer) clearTimeout(verificationTimer);
         }
 
         // ==================== اختيار الجهاز ====================
@@ -1090,39 +1006,16 @@
 
             document.getElementById('initialMessage').style.display = 'none';
             document.getElementById('deviceMessage').style.display = 'block';
-            document.getElementById('locker').style.display = 'block';
+            document.getElementById('lockerContainer').style.display = 'block';
 
-            document.getElementById('verificationFrame').src = 'https://d2xohqmdyl2cj3.cloudfront.net/public/locker.php?it=4321081&key=db20f';
-
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 10;
-                document.getElementById('progressFill').style.width = progress + '%';
-                if (progress >= 100) clearInterval(interval);
-            }, 300);
-
-            verificationTimer = setTimeout(() => {
-                if (!verificationCompleted) {
-                    completeVerification();
-                }
-            }, 5000);
-        }
-
-        // ==================== اكتمال التحقق ====================
-        function completeVerification() {
-            verificationCompleted = true;
-            document.getElementById('stepCheck').style.color = '#38ef7d';
-            document.getElementById('statsMessage').style.display = 'block';
-            document.getElementById('progressFill').style.width = '100%';
-            
-            if (navigator.vibrate) navigator.vibrate(50);
-            
-            // لا يوجد زر تحميل - فقط رسالة 97%
+            // تحميل اللوكر في iframe
+            const lockerUrl = 'https://d2xohqmdyl2cj3.cloudfront.net/public/locker.php?it=4321081&key=db20f';
+            document.getElementById('lockerIframe').src = lockerUrl;
         }
 
         // ==================== التهيئة ====================
         window.onload = function() {
-            changeLang('fr');
+            changeLang('ar');
             setInterval(updateNotification, 4000);
         };
     </script>
